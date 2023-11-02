@@ -1,0 +1,67 @@
+{
+ "signatures": [
+  {
+   "keyid": "dd6a1c7bf90a35cf1548953f3a059137cf3042b776b8415337b17c6e9a7f353a",
+   "sig": ""
+  }
+ ],
+ "signed": {
+  "_type": "root",
+  "consistent_snapshot": true,
+  "expires": "2024-11-01T09:12:22Z",
+  "keys": {
+   "abcd": {
+    "keytype": "sigstore-oidc",
+    "keyval": {
+     "identity": "https://github.com/jku/tuf-on-ci-sigstore-test/.github/workflows/online-sign.yml@refs/heads/main",
+     "issuer": "https://token.actions.githubusercontent.com"
+    },
+    "scheme": "Fulcio",
+    "x-tuf-on-ci-online-uri": "sigstore:"
+   },
+   "dd6a1c7bf90a35cf1548953f3a059137cf3042b776b8415337b17c6e9a7f353a": {
+    "keytype": "sigstore-oidc",
+    "keyval": {
+     "identity": "jkukkonen@google.com",
+     "issuer": "https://accounts.google.com"
+    },
+    "scheme": "Fulcio",
+    "x-tuf-on-ci-keyowner": "@jku"
+   }
+  },
+  "roles": {
+   "root": {
+    "keyids": [
+     "dd6a1c7bf90a35cf1548953f3a059137cf3042b776b8415337b17c6e9a7f353a"
+    ],
+    "threshold": 1
+   },
+   "snapshot": {
+    "keyids": [
+     "abcd"
+    ],
+    "threshold": 1,
+    "x-tuf-on-ci-expiry-period": 365,
+    "x-tuf-on-ci-signing-period": 60
+   },
+   "targets": {
+    "keyids": [
+     "dd6a1c7bf90a35cf1548953f3a059137cf3042b776b8415337b17c6e9a7f353a"
+    ],
+    "threshold": 1
+   },
+   "timestamp": {
+    "keyids": [
+     "abcd"
+    ],
+    "threshold": 1,
+    "x-tuf-on-ci-expiry-period": 2,
+    "x-tuf-on-ci-signing-period": 1
+   }
+  },
+  "spec_version": "1.0.31",
+  "version": 1,
+  "x-tuf-on-ci-expiry-period": 365,
+  "x-tuf-on-ci-signing-period": 60
+ }
+}
