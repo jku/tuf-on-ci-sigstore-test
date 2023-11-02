@@ -1,0 +1,24 @@
+name: TUF-on-CI online signing
+
+permissions: {}
+
+on:
+  workflow_dispatch:
+
+jobs:
+  online-sign:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: 'write' # for OIDC identity access
+
+    steps:
+    - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236 # v4.7.1
+      with:
+        python-version: "3.11"
+
+    - run: pip install securesystemslib[sigstore,crypto]
+      shell: bash
+
+    - run: python test-sigstore-signer.py
+      shell: bash
