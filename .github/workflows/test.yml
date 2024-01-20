@@ -13,6 +13,3 @@ jobs:
     steps:
       - name: Smoke test repository with a client
         uses: jku/tuf-on-ci/actions/test-repository@test-client
-        with:
-          metadata_url: https://jku.github.io/tuf-on-ci-sigstore-test/metadata/
-          artifact_url: https://jku.github.io/tuf-on-ci-sigstore-test/targets/
