@@ -1,76 +1,23 @@
 {
  "signatures": [
   {
-   "bundle": {
-    "mediaType": "application/vnd.dev.sigstore.bundle+json;version=0.2",
-    "messageSignature": {
-     "messageDigest": {
-      "algorithm": "SHA2_256",
-      "digest": "swMvG5eBVxv+o+ODli7s+KZgi7SRn0bNGSFbZ0qJVn8="
-     },
-     "signature": "MEYCIQCBSFEpXElHQqrcbCmACdEVZ7xkowAknZkjlBN+129ZfAIhAIKIr7GvVxi6ZPY7MkiT4A91kgRDry+Y4ocdd4SFgbI9"
-    },
-    "verificationMaterial": {
-     "tlogEntries": [
-      {
-       "canonicalizedBody": "eyJhcGlWZXJzaW9uIjoiMC4wLjEiLCJraW5kIjoiaGFzaGVkcmVrb3JkIiwic3BlYyI6eyJkYXRhIjp7Imhhc2giOnsiYWxnb3JpdGhtIjoic2hhMjU2IiwidmFsdWUiOiJiMzAzMmYxYjk3ODE1NzFiZmVhM2UzODM5NjJlZWNmOGE2NjA4YmI0OTE5ZjQ2Y2QxOTIxNWI2NzRhODk1NjdmIn19LCJzaWduYXR1cmUiOnsiY29udGVudCI6Ik1FWUNJUUNCU0ZFcFhFbEhRcXJjYkNtQUNkRVZaN3hrb3dBa25aa2psQk4rMTI5WmZBSWhBSUtJcjdHdlZ4aTZaUFk3TWtpVDRBOTFrZ1JEcnkrWTRvY2RkNFNGZ2JJOSIsInB1YmxpY0tleSI6eyJjb250ZW50IjoiTFMwdExTMUNSVWRKVGlCRFJWSlVTVVpKUTBGVVJTMHRMUzB0Q2sxSlNVTjZWRU5EUVd4UFowRjNTVUpCWjBsVlRYVXJSR29yT1RScFdFb3pNbmhJU0M4M1VFVlFRMWREYURkemQwTm5XVWxMYjFwSmVtb3dSVUYzVFhjS1RucEZWazFDVFVkQk1WVkZRMmhOVFdNeWJHNWpNMUoyWTIxVmRWcEhWakpOVWpSM1NFRlpSRlpSVVVSRmVGWjZZVmRrZW1SSE9YbGFVekZ3WW01U2JBcGpiVEZzV2tkc2FHUkhWWGRJYUdOT1RXcE5lRTFVUVhsTlJHdDRUV3BKTTFkb1kwNU5hazE0VFZSQmVVMUVhM2xOYWtrelYycEJRVTFHYTNkRmQxbElDa3R2V2tsNmFqQkRRVkZaU1V0dldrbDZhakJFUVZGalJGRm5RVVZDVjNOSVdXWlNSa2R0T1RWMlpuVnhRMkk0YkhJdlVqQjNaVVJuS3lzd0syZDVaWE1LY2xCT1pWSlJjeko0V2xWQlVXazJZMnMzVUZGRWVHZEZXR2R2WTNrd2VIQXZVMGd4YW1ocU5rOXBkbmhuV0dsdFdtRlBRMEZZU1hkblowWjFUVUUwUndwQk1WVmtSSGRGUWk5M1VVVkJkMGxJWjBSQlZFSm5UbFpJVTFWRlJFUkJTMEpuWjNKQ1owVkdRbEZqUkVGNlFXUkNaMDVXU0ZFMFJVWm5VVlZ2TUdwMkNscFhSbXB3UWtwMVYzbHdiVTE2UzBKdGRYUkdVbFpKZDBoM1dVUldVakJxUWtKbmQwWnZRVlV6T1ZCd2VqRlphMFZhWWpWeFRtcHdTMFpYYVhocE5Ga0tXa1E0ZDBsbldVUldVakJTUVZGSUwwSkNaM2RHYjBWVllXMTBNV0V5ZEhaaWJWWjFVVWRrZG1JeVpITmFVelZxWWpJd2QwdFJXVXRMZDFsQ1FrRkhSQXAyZWtGQ1FWRlJZbUZJVWpCalNFMDJUSGs1YUZreVRuWmtWelV3WTNrMWJtSXlPVzVpUjFWMVdUSTVkRTFEYzBkRGFYTkhRVkZSUW1jM09IZEJVV2RGQ2toUmQySmhTRkl3WTBoTk5reDVPV2haTWs1MlpGYzFNR041Tlc1aU1qbHVZa2RWZFZreU9YUk5TVWRMUW1kdmNrSm5SVVZCWkZvMVFXZFJRMEpJZDBVS1pXZENORUZJV1VFelZEQjNZWE5pU0VWVVNtcEhValJqYlZkak0wRnhTa3RZY21wbFVFc3pMMmcwY0hsblF6aHdOMjgwUVVGQlIweHFNRFIwUW1kQlFRcENRVTFCVW5wQ1JrRnBRbk0yZG5kemVYTnNOM1kzV2pVNVlrMU1WWFZzVFVvd00wazRXWFpsY0VwaFpXMVZNSFp0Ym5nMlNFRkphRUZPWkdoVFRVUlZDblYwZVhGVlRYUkJZMUpoWlVwUVpFeE1MMlZpS3pOQ1VtdG9LM3B4THpCclNYQmxhVTFCYjBkRFEzRkhVMDAwT1VKQlRVUkJNbWRCVFVkVlEwMVJRMHdLTVhRMFZHTkxPRmhQVkV0WU1GaFZWV3RPTjJkRE56VkRWVXhtU1N0bVRHaDBSUzloV25kM1FUZENja1F2YlVsUGVHRTFSM2hIUlVwS09DdHFkMmhqUXdwTlFWWllMMFkxUVhweVUyNTNSM1ZaYmxvdlEzQlhNRWg2V0hadVV6bExVakZNUlVaWFRXeG1Salo1Y0RWTVIwSmpWVU50Wmt4c2REQm5iVkpoZEVkNkNrbEJQVDBLTFMwdExTMUZUa1FnUTBWU1ZFbEdTVU5CVkVVdExTMHRMUW89In19fX0=",
-       "inclusionPromise": {
-        "signedEntryTimestamp": "MEQCICVlDCQolrsnQw7vXMUGPjJ+v/Xc0nfEZmtOaipDSac9AiByiIWXV6tqzCb+8dYHFY8YtI+qK2O3GtOmvrSBHpURYA=="
-       },
-       "inclusionProof": {
-        "checkpoint": {
-         "envelope": "rekor.sigstore.dev - 2605736670972794746\n42847076\nSE2n6J9ebRnzrNqT5drziyEb4pyGUU7mYMBaNPZDAo8=\nTimestamp: 1698916347750143936\n\n\u2014 rekor.sigstore.dev wNI9ajBFAiAmGLAdIU4Bjzz5kskeSMGZojhtux/yeeHaefUAhw3mvQIhALr7clpsNzWyuikAAXZ9PSvo+Ei0WoWkwMFLcQip6Hhd\n"
-        },
-        "hashes": [
-         "AypvyjvUunHxa7wan5HRrKt33WKhUTckSCo6mbOTBcc=",
-         "ZX+N+fKKZ1fRUijKc8OrF/3+yznZPpIwc02hTqQS5a0=",
-         "CymW+niiLqyFaV3JaHgrZIeCEs1wzvhNjqR7OIQ6wJ0=",
-         "KVpdpchYm+BmXiRBrQPaaRe1TsPorJ1K+DgJyaAPN6c=",
-         "X641nLTtoapU5G22lavF8b5IinN5LSo/evg/PAIFCvs=",
-         "wzHWXhvvVy+r8U/YQsBo1N4jFe/rit65W3em2k/99f0=",
-         "nDJnKucp/Rf7rFLqqVkcsYtyInO66kf0lLCHvp1afG8=",
-         "bbgCFFJQrUXR3jJyiUkkDIqHzWs+GJZJJXgdqEbvEDo=",
-         "yB41jMfLgQC/2ipvPSRnHkyXYSlbYeSsqfx/VAX3HbI=",
-         "L7YO5I1s5GdteKXDdbh3qULqT7lUw2GvBh9r1clgeKQ=",
-         "culkkxa0hG0DVbieRt8waTGRfslvC7yAF0Z+jGsqrOo=",
-         "4vFO6fitoyZNRTSvBa5cnR3ve7jXG8FfBovSod1lJHw=",
-         "sJQsmanmnH8v+/L3JuWQhHS1ICoLnrpaAwhpwub6uXc=",
-         "aWnEm9c/Gb8operqvTMd3WBQLe+yzT2W4Xt0HICt7Gw="
-        ],
-        "logIndex": "42847072",
-        "rootHash": "SE2n6J9ebRnzrNqT5drziyEb4pyGUU7mYMBaNPZDAo8=",
-        "treeSize": "42847076"
-       },
-       "integratedTime": "1698916347",
-       "kindVersion": {
-        "kind": "hashedrekord",
-        "version": "0.0.1"
-       },
-       "logId": {
-        "keyId": "wNI9atQGlz+VWfO6LRygH4QUfY/8W4RFwiT5i5WRgB0="
-       },
-       "logIndex": "47010503"
-      }
-     ],
-     "x509CertificateChain": {
-      "certificates": [
-       {
-        "rawBytes": "MIICzTCCAlOgAwIBAgIUMu+Dj+94iXJ32xHH/7PEPCWCh7swCgYIKoZIzj0EAwMwNzEVMBMGA1UEChMMc2lnc3RvcmUuZGV2MR4wHAYDVQQDExVzaWdzdG9yZS1pbnRlcm1lZGlhdGUwHhcNMjMxMTAyMDkxMjI3WhcNMjMxMTAyMDkyMjI3WjAAMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBWsHYfRFGm95vfuqCb8lr/R0weDg++0+gyesrPNeRQs2xZUAQi6ck7PQDxgEXgocy0xp/SH1jhj6OivxgXimZaOCAXIwggFuMA4GA1UdDwEB/wQEAwIHgDATBgNVHSUEDDAKBggrBgEFBQcDAzAdBgNVHQ4EFgQUo0jvZWFjpBJuWypmMzKBmutFRVIwHwYDVR0jBBgwFoAU39Ppz1YkEZb5qNjpKFWixi4YZD8wIgYDVR0RAQH/BBgwFoEUamt1a2tvbmVuQGdvb2dsZS5jb20wKQYKKwYBBAGDvzABAQQbaHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tMCsGCisGAQQBg78wAQgEHQwbaHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tMIGKBgorBgEEAdZ5AgQCBHwEegB4AHYA3T0wasbHETJjGR4cmWc3AqJKXrjePK3/h4pygC8p7o4AAAGLj04tBgAABAMARzBFAiBs6vwsysl7v7Z59bMLUulMJ03I8YvepJaemU0vmnx6HAIhANdhSMDUutyqUMtAcRaeJPdLL/eb+3BRkh+zq/0kIpeiMAoGCCqGSM49BAMDA2gAMGUCMQCL1t4TcK8XOTKX0XUUkN7gC75CULfI+fLhtE/aZwwA7BrD/mIOxa5GxGEJJ8+jwhcCMAVX/F5AzrSnwGuYnZ/CpW0HzXvnS9KR1LEFWMlfF6yp5LGBcUCmfLlt0gmRatGzIA=="
-       }
-      ]
-     }
-    }
-   },
    "keyid": "dd6a1c7bf90a35cf1548953f3a059137cf3042b776b8415337b17c6e9a7f353a",
-   "sig": "3046022100814851295c494742aadc6c298009d11567bc64a300249d992394137ed76f597c0221008288afb1af5718ba64f63b324893e00f75920443af2f98e2871d77848581b23d"
+   "sig": ""
   }
  ],
  "signed": {
   "_type": "targets",
-  "expires": "2024-11-01T09:12:22Z",
+  "expires": "2025-01-21T16:24:52Z",
   "spec_version": "1.0.31",
-  "targets": {},
-  "version": 1,
+  "targets": {
+   "testfile": {
+    "hashes": {
+     "sha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03"
+    },
+    "length": 6
+   }
+  },
+  "version": 2,
   "x-tuf-on-ci-expiry-period": 365,
   "x-tuf-on-ci-signing-period": 60
  }
