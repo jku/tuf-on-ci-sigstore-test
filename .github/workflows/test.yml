@@ -10,6 +10,10 @@ permissions: {}
 jobs:
   client-smoke-test:
     runs-on: ubuntu-latest
+    permissions:
+      issues: 'write' # for opening/closing issues
     steps:
       - name: Smoke test repository with a client
-        uses: jku/tuf-on-ci/actions/test-repository@issue-mgmt
+        uses: jku/tuf-on-ci/actions/test-repository@issue-mgmt # TESTING NEW FEATURE
+        with:
+          token: ${{ secrets.TUF_ON_CI_TOKEN || secrets.GITHUB_TOKEN }}
