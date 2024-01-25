@@ -37,6 +37,8 @@ jobs:
 
   test:
     needs: deploy
+    permissions:
+      issues: 'write' # for modifying Issues
     uses: ./.github/workflows/test.yml
 
   update-issue:
