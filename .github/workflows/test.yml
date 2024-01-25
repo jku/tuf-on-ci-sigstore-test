@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Smoke test repository with a client
         uses: jku/tuf-on-ci/actions/test-repository@issue-mgmt # FIXME repo & ref
-        with:
-          token: ${{ secrets.TUF_ON_CI_TOKEN || secrets.GITHUB_TOKEN }}
 
   update-issue:
     runs-on: ubuntu-latest
