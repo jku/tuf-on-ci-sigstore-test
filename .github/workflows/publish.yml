@@ -36,12 +36,8 @@ jobs:
         uses: actions/deploy-pages@7a9bd943aa5e5175aeb8502edcc6c1c02d398e10 # v4.0.2
 
   test:
-    runs-on: ubuntu-latest
     needs: deploy
-    steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      - name: Run repository tests
-        uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/test.yml
 
   update-issue:
     runs-on: ubuntu-latest
