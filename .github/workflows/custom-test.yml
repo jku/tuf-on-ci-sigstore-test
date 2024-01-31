@@ -13,10 +13,6 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(jobs) }}
-        run: echo "$JOB_CONTEXT"
       - run: |
           echo "CUSTOM TEST: OK"
           echo GITHUB_WORKFLOW_REF $GITHUB_WORKFLOW_REF
