@@ -9,6 +9,13 @@ jobs:
   custom-test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            console.log(github)
+            console.log(context)
+            console.log(job)
+            console.log(jobs)
       - run: |
           echo "CUSTOM TEST: OK"
           echo GITHUB_WORKFLOW_REF $GITHUB_WORKFLOW_REF
