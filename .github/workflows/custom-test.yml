@@ -1,0 +1,13 @@
+name: Custom repository tests
+
+on:
+  workflow_call:
+
+permissions: {}
+
+jobs:
+  custom-test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "CUSTOM TEST: OK"
