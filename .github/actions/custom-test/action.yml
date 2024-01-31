@@ -10,3 +10,4 @@ runs:
     - name: test
       run: |
         echo ok
+      shell: bash
