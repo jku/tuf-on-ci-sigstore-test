@@ -11,3 +11,4 @@ jobs:
     steps:
       - run: |
           echo "CUSTOM TEST: OK"
+          echo GITHUB_WORKFLOW_REF $GITHUB_WORKFLOW_REF
