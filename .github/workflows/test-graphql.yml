@@ -1,0 +1,39 @@
+name: graphql-test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  modify-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        with:
+          script: |
+            response = await github.graphql({
+              query: `query {
+                repository(owner: "jku", name: "tuf-on-ci-sigstore-test") {
+                  pullRequest(number: 27) {
+                    id
+                  }
+                }
+              }`
+            })
+            pr_id = response.repository.pullRequest.id
+            console.log(pr_id)
+            response = await github.graphql({
+              query: `mutation SetDraft {
+                markPullRequestReadyForReview(input: {pullRequestId: "${pr_id}"}) {
+                  pullRequest {
+                    id,
+                    number,
+                    isDraft
+                  }
+                }
+              }`
+            }) 
+            console.log(response)
