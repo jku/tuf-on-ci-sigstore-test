@@ -17,13 +17,13 @@ jobs:
         with:
           script: |
             console.log(github.rest.pulls)
-            response = await github.graphql(
-              `query {
+            response = await github.graphql({
+              query: `query {
                 viewer {
                   login
                 }
               }`
-            )
+            })
             console.log(response)
       - run: |
           echo "CUSTOM TEST: OK"
