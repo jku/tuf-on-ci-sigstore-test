@@ -16,6 +16,8 @@ jobs:
         uses: theupdateframework/tuf-on-ci/actions/test-repository@4ae5fdf2b18c6256787df167fce7a0e2d7e7a40e # v0.5.0
 
   custom-smoke-test:
+    permissions:
+      pull-requests: write
     uses: ./.github/workflows/custom-test.yml
 
   update-issue:
