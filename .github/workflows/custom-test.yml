@@ -26,9 +26,10 @@ jobs:
               }`
             })
             console.log(response)
+            pr_id = response.repository.pullRequest.id
             response = await github.graphql({
               query: `mutation SetDraft {
-                markPullRequestReadyForReview(input: {pullRequestId: 27}) {
+                markPullRequestReadyForReview(input: {pullRequestId: '${pr_id}'}) {
                   pullRequest {
                     id,
                     number,
