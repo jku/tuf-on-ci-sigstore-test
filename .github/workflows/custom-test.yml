@@ -22,7 +22,7 @@ jobs:
                 viewer {
                   login
                 }
-              }`,
+              }`
             )
             console.log(response)
       - run: |
