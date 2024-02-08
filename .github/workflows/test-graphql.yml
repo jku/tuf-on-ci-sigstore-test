@@ -26,9 +26,10 @@ jobs:
             })
 
             pr_id = response.repository.pullRequest.id
+            is_draft = response.repository.pullRequest.isDraft
             console.log(pr_id)
 
-            if isDraft {
+            if is_draft {
               response = await github.graphql({
                 query: `mutation SetDraft {
                   markPullRequestReadyForReview(input: {pullRequestId: "${pr_id}"}) { pullRequest { isDraft } }
