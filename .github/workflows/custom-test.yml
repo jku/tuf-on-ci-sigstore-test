@@ -3,7 +3,8 @@ name: Custom repository tests
 on:
   workflow_call:
 
-permissions: {}
+permissions:
+  pull-requests: write
 
 jobs:
   custom-test:
