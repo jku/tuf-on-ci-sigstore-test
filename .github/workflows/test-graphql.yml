@@ -29,9 +29,6 @@ jobs:
             response = await github.graphql({
               query: `mutation SetDraft {
                 convertPullRequestToDraft(input: {pullRequestId: "${pr_id}"}) {
-                  pullRequest {
-                    isDraft
-                  }
                 }
               }`
             }) 
