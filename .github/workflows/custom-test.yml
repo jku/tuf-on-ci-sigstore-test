@@ -18,7 +18,7 @@ jobs:
           script: |
             console.log(github.rest.pulls)
             response = await github.graphql(
-              query: `query {
+              `query {
                 viewer {
                   login
                 }
