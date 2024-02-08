@@ -17,7 +17,13 @@ jobs:
         with:
           script: |
             console.log(github.rest.pulls)
-
+            console.log(github.graphql(`
+              query {
+                viewer {
+                  login
+                }
+              }
+            `))
       - run: |
           echo "CUSTOM TEST: OK"
           echo GITHUB_WORKFLOW_REF $GITHUB_WORKFLOW_REF
