@@ -18,7 +18,8 @@ jobs:
               query: `query {
                 repository(owner: "jku", name: "tuf-on-ci-sigstore-test") {
                   pullRequest(number: 27) {
-                    id
+                    id,
+                    isDraft
                   }
                 }
               }`
@@ -26,20 +27,18 @@ jobs:
 
             pr_id = response.repository.pullRequest.id
             console.log(pr_id)
-            response = await github.graphql({
-              query: `mutation SetDraft {
-                convertPullRequestToDraft(input: {pullRequestId: "${pr_id}"}) { pullRequest { isDraft } }
-              }`
-            }) 
-            console.log(response)
 
-            response = await github.graphql({
-              query: `mutation SetDraft {
-                markPullRequestReadyForReview(input: {pullRequestId: "${pr_id}"}) {
-                  pullRequest {
-                    isDraft
-                  }
-                }
-              }`
-            }) 
+            if isDraft {
+              response = await github.graphql({
+                query: `mutation SetDraft {
+                  markPullRequestReadyForReview(input: {pullRequestId: "${pr_id}"}) { pullRequest { isDraft } }
+                }`
+              })
+            } else {
+              response = await github.graphql({
+                query: `mutation SetDraft {
+                  convertPullRequestToDraft(input: {pullRequestId: "${pr_id}"}) { pullRequest { isDraft } }
+                }`
+              }) 
+            }
             console.log(response)
