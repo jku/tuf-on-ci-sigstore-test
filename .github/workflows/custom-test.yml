@@ -16,7 +16,6 @@ jobs:
       - uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
         with:
           script: |
-            console.log(github.rest.pulls)
             response = await github.graphql({
               query: `query {
                 viewer {
@@ -24,6 +23,12 @@ jobs:
                 }
               }`
             })
+            console.log(response)
+            response = await github.graphql({
+              mutation: `mutation SetDraft {
+                markPullRequestReadyForReview(input: {pullRequestId: 27})
+              }`
+            }) 
             console.log(response)
       - run: |
           echo "CUSTOM TEST: OK"
