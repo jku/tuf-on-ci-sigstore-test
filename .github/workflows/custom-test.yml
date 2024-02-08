@@ -26,7 +26,13 @@ jobs:
             console.log(response)
             response = await github.graphql({
               mutation: `mutation SetDraft {
-                markPullRequestReadyForReview(input: {pullRequestId: 27})
+                markPullRequestReadyForReview(input: {pullRequestId: 27}) {
+                  pullRequest {
+                    id,
+                    number,
+                    isDraft
+                  }
+                }
               }`
             }) 
             console.log(response)
