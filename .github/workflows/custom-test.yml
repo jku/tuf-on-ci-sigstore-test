@@ -18,8 +18,10 @@ jobs:
           script: |
             response = await github.graphql({
               query: `query {
-                viewer {
-                  login
+                repository(owner: "jku", name: "tuf-on-ci-sigstore-test") {
+                  pullRequest(number: 27) {
+                    id
+                  }
                 }
               }`
             })
