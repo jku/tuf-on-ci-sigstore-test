@@ -28,8 +28,7 @@ jobs:
             console.log(pr_id)
             response = await github.graphql({
               query: `mutation SetDraft {
-                convertPullRequestToDraft(input: {pullRequestId: "${pr_id}"}) {
-                }
+                convertPullRequestToDraft(input: {pullRequestId: "${pr_id}"})
               }`
             }) 
             console.log(response)
