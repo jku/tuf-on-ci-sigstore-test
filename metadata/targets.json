@@ -7,17 +7,17 @@
  ],
  "signed": {
   "_type": "targets",
-  "expires": "2025-02-08T07:51:19Z",
+  "expires": "2025-02-08T08:23:14Z",
   "spec_version": "1.0.31",
   "targets": {
    "testfile": {
     "hashes": {
-     "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+     "sha256": "8855c6119660c614d285554e51769066e94fcb75ff215ccc2fa6b4838b18756b"
     },
-    "length": 1
+    "length": 3
    }
   },
-  "version": 3,
+  "version": 4,
   "x-tuf-on-ci-expiry-period": 365,
   "x-tuf-on-ci-signing-period": 60
  }
