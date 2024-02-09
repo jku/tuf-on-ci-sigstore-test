@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # for making git commits in branch and setting draft state on/off
-      issues: write
+      pull-requests: write
       actions: write # for dispatching another signing-event workflow
 
     steps:
