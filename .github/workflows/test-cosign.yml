@@ -1,0 +1,21 @@
+name: root-signing repository tests with a Sigstore client
+on:
+  workflow_dispatch:
+permissions: {}
+
+jobs:
+  custom-test-go:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: 'write' # For signing with the GitHub workflow identity
+    steps:
+      - uses: sigstore/cosign-installer@e1523de7571e31dbe865fd2e80c5c7c23ae71eb4 # v3.4.0
+
+      - name: Download initial root
+        run: curl -o root.json https://sigstore.github.io/root-signing-staging/1.root.json
+
+      - name: Test published repository with cosign
+          cosign initialize --root root.json --mirror https://sigstore.github.io/root-signing-staging/
+
+          # TODO: Add "cosign sign-blob" and cosign "verify-blob" once it's clear how to
+          # do that against staging
