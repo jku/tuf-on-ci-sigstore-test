@@ -15,6 +15,7 @@ jobs:
         run: curl -o root.json https://sigstore.github.io/root-signing-staging/1.root.json
 
       - name: Test published repository with cosign
+        run: |
           cosign initialize --root root.json --mirror https://sigstore.github.io/root-signing-staging/
 
           # TODO: Add "cosign sign-blob" and cosign "verify-blob" once it's clear how to
