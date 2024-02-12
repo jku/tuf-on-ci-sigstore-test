@@ -6,10 +6,13 @@ on:
     inputs:
       gcp_workload_identity_provider:
         required: true
+        type: string
       gcp_service_account:
         required: true
+        type: string
       token:
         required: true
+        type: string
 
 permissions: {}
 
