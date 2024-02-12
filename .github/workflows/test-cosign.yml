@@ -28,7 +28,7 @@ jobs:
 
       - name: Test published repository with sigstore-python
         run: |
-          IDENTITY="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/.github/workflows/custom-test.yml@$GITHUB_REF"
+          IDENTITY="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/.github/workflows/test-cosign.yml@$GITHUB_REF"
           touch artifact
           # sign, then verify using this workflows oidc identity
           python -m sigstore -vv --staging sign artifact
@@ -46,12 +46,13 @@ jobs:
 
       - name: Test published repository with cosign
         run: |
-          IDENTITY="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/.github/workflows/custom-test.yml@$GITHUB_REF"
+          IDENTITY="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/.github/workflows/test-cosign.yml@$GITHUB_REF"
           touch artifact
 
           cosign initialize --root root.json --mirror https://sigstore.github.io/root-signing-staging/
 
           cosign sign-blob \
+              --yes \
               --fulcio-url https://fulcio.sigstage.dev \
               --oidc-issuer https://oauth2.sigstage.dev/auth \
               --rekor-url https://rekor.sigstage.dev \
