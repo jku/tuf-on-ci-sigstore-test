@@ -41,6 +41,16 @@ jobs:
       issues: 'write' # for modifying Issues
     uses: ./.github/workflows/test.yml
 
+  deploy-to-gcs:
+    needs: [build, test-deployed-repository]
+    permissions:
+      id-token: 'write' # for authenticating with OIDC
+    uses: ./.github/workflows/deploy-to-gcs.yml
+    with:
+      token: ${{ secrets.TUF_ON_CI_TOKEN || secrets.GITHUB_TOKEN }}
+      gcp_workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+      gcp_service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+
   update-issue:
     runs-on: ubuntu-latest
     needs: [build, deploy, test-deployed-repository]
