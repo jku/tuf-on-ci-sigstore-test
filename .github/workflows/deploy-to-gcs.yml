@@ -10,9 +10,6 @@ on:
       gcp_service_account:
         required: true
         type: string
-      token:
-        required: true
-        type: string
 
 permissions: {}
 
