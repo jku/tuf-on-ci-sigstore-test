@@ -52,7 +52,7 @@ jobs:
 
   update-issue:
     runs-on: ubuntu-latest
-    needs: [build, deploy, test-deployed-repository]
+    needs: [build, deploy, test-deployed-repository, deploy-to-gcs]
     if: always() && !cancelled()
     permissions:
       issues: 'write' # for modifying Issues
