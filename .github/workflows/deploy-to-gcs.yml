@@ -20,6 +20,17 @@ jobs:
       id-token: 'write' # For authenticating with the GitHub workflow identity
 
     steps:
+      - uses: actions/download-artifact@eaceaf801fd36c7dee90939fad912460b18a1ffe # v4.1.2
+        with:
+          name: github-pages
+
+      - name: Prepare the data for upload
+        run: |
+          # Extract the github-pages arcive into ./repository/
+          mkdir repository
+          tar --directory repository -xvf artifact.tar
+          ls -ltr repository/*
+
       - uses: google-github-actions/auth@a6e2e39c0a0331da29f7fd2c2a20a427e8d3ad1f # v2.1.1
         with:
           token_format: 'access_token'
@@ -30,23 +41,11 @@ jobs:
         #with:
         #  project_id: project-rekor
 
-      - uses: actions/download-artifact@eaceaf801fd36c7dee90939fad912460b18a1ffe # v4.1.2
-        with:
-          name: github-pages
-          path: repository
-
       - name: Upload repository to GCS
         run: |
-          # Extract the arcive in repository/
-          cd repository
-          tar xvf artifact.tar
-          rm artifact.tar
-          ls -ltr *
-
-          # Upload. Make sure we upload timestamp last
-          mv metadata/timestamp.json ..
-          gcloud storage cp --cache-control=no-store -r ./ gs://jku-testbucket/
-          mv ../timestamp.json ./metadata/
-          gcloud storage cp --cache-control=no-store metadata/timestamp.json gs://jku-testbucket/
+          # Make sure we upload timestamp last
+          mv repository/metadata/timestamp.json .
+          gcloud storage cp --cache-control=no-store -r repository/ gs://jku-testbucket/
+          gcloud storage cp --cache-control=no-store timestamp.json gs://jku-testbucket/metadata/
 
           # gcloud compute url-maps invalidate-cdn-cache tuf-repo-cdn-lb --path "/*" --async
