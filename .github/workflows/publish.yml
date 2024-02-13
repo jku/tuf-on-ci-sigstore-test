@@ -48,7 +48,7 @@ jobs:
     uses: ./.github/workflows/deploy-to-gcs.yml
     with:
       gcp_workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-      gcp_service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+      gcp_service_account: ${{ vars.TEST_SERVICE_ACCOUNT }}
 
   update-issue:
     runs-on: ubuntu-latest
