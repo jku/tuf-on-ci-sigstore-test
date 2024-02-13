@@ -29,7 +29,6 @@ jobs:
           # Extract the github-pages arcive into ./repository/
           mkdir repository
           tar --directory repository -xvf artifact.tar
-          ls -ltr repository/*
 
       - uses: google-github-actions/auth@a6e2e39c0a0331da29f7fd2c2a20a427e8d3ad1f # v2.1.1
         with:
