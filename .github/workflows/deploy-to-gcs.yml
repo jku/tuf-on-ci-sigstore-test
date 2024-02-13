@@ -45,7 +45,7 @@ jobs:
         run: |
           # Make sure we upload timestamp last
           mv repository/metadata/timestamp.json .
-          gcloud storage cp --cache-control=no-store -r repository/ gs://jku-testbucket/
+          gcloud storage cp --cache-control=no-store -r repository/* gs://jku-testbucket/
           gcloud storage cp --cache-control=no-store timestamp.json gs://jku-testbucket/metadata/
 
           # gcloud compute url-maps invalidate-cdn-cache tuf-repo-cdn-lb --path "/*" --async
