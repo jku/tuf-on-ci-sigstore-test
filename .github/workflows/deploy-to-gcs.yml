@@ -44,7 +44,7 @@ jobs:
         run: |
           # Make sure we upload timestamp last
           RSYNC="gcloud storage rsync --cache-control=no-store --recursive"
-          $RSYNC --exclude=metadata/timestamp.json "repository/*" gs://jku-testbucket/
-          $RSYNC repository/metadata/timestamp.json gs://jku-testbucket/metadata/
+          $RSYNC --exclude=metadata/timestamp.json repository/ gs://jku-testbucket/
+          $RSYNC repository/metadata/timestamp.json gs://jku-testbucket/metadata/timestamp.json
 
           # gcloud compute url-maps invalidate-cdn-cache tuf-repo-cdn-lb --path "/*" --async
