@@ -78,4 +78,4 @@ jobs:
           # Upload metadata, make sure we upload timestamp last
           gcloud storage rsync --cache-control=no-store --recursive --exclude=timestamp.json \
               repository/ $BUCKET
-          gcloud storage cp --cache-control=no-store repository/metadata/timestamp.json $BUCKET
+          gcloud storage cp --cache-control=no-store repository/metadata/timestamp.json ${BUCKET}metadata/timestamp.json
