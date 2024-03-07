@@ -48,9 +48,9 @@ jobs:
           DRYRUN_CLEANUP="^Ŵould set mtime for |^At file://\|^At gs://\|^[[:space:]]*$"
 
           # Find out which files have changed: run rsync dry-run and cleanup the output 
-          gcloud --quiet storage rsync --dry-run --recursive repository/ $BUCKET
+          gcloud --quiet storage rsync --checksums-only --dry-run --recursive repository/ $BUCKET
           echo "----"
-          gcloud --quiet storage rsync --dry-run --recursive repository/ $BUCKET >dryrun 2>&1
+          gcloud --quiet storage rsync --checksums-only --dry-run --recursive repository/ $BUCKET >dryrun 2>&1
           grep -v "$DRYRUN_CLEANUP" dryrun > dryrun-cleaned || true
 
           if ! grep -q -v "$TIMESTAMP_DRYRUN" dryrun-cleaned; then
@@ -76,6 +76,6 @@ jobs:
           BUCKET="gs://jku-testbucket/"
 
           # Upload metadata, make sure we upload timestamp last
-          gcloud storage rsync --cache-control=no-store --recursive --exclude=timestamp.json \
+          gcloud storage rsync --checksums-only --cache-control=no-store --recursive --exclude=timestamp.json \
               repository/ $BUCKET
           gcloud storage cp --cache-control=no-store repository/metadata/timestamp.json ${BUCKET}metadata/timestamp.json
