@@ -44,22 +44,18 @@ jobs:
         id: change-detector
         run: |
           BUCKET="gs://jku-testbucket/"
-          TIMESTAMP_DRYRUN="Would copy file://repository/metadata/timestamp.json to ${BUCKET}metadata/timestamp.json"
-          DRYRUN_CLEANUP="^Ŵould set mtime for |^At file://\|^At gs://\|^[[:space:]]*$"
 
-          # Find out which files have changed: run rsync dry-run and cleanup the output 
-          gcloud --quiet storage rsync --checksums-only --dry-run --recursive repository/ $BUCKET
-          echo "----"
-          gcloud --quiet storage rsync --checksums-only --dry-run --recursive repository/ $BUCKET >dryrun 2>&1
-          grep -v "$DRYRUN_CLEANUP" dryrun > dryrun-cleaned || true
+          # download current content
+          gcloud storage rsync --recursive $BUCKET current-repository
 
-          if ! grep -q -v "$TIMESTAMP_DRYRUN" dryrun-cleaned; then
-            echo No changes detected outside of timestamp
-            echo "TIMESTAMP_ONLY=true" >> "$GITHUB_OUTPUT"
+          # Test what the changes would be if we exclude timestamp
+          rsync --recursive current-repository/ new-repository/
+          rsync --recursive --exclude=metadata/timestamp.json repository/ new-repository/
+          if diff --brief --recursive current-repository new-repository; then
+              echo No changes detected outside of timestamp
+              echo "TIMESTAMP_ONLY=true" >> "$GITHUB_OUTPUT"
           else
-            echo Changes detected:
-            cat dryrun-cleaned
-            echo "TIMESTAMP_ONLY=false" >> "$GITHUB_OUTPUT"
+              echo "TIMESTAMP_ONLY=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Upload new timestamp to GCS
