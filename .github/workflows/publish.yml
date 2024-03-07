@@ -43,30 +43,65 @@ jobs:
 
   deploy-timestamp-to-gcs:
     needs: [build, test-deployed-repository]
+    runs-on: ubuntu-latest
+    concurrency: 
+      group: gcs-deploy
+      cancel-in-progress: true
     permissions:
-      id-token: 'write' # for authenticating with OIDC
-    uses: ./.github/workflows/deploy-to-gcs-stage-1.yml
-    with:
-      gcp_workload_identity_provider: 'projects/843741030650/locations/global/workloadIdentityPools/testpool/providers/testprovider'
-      gcp_service_account: ${{ vars.TEST_SERVICE_ACCOUNT }}
+      id-token: 'write' # For authenticating with the GitHub workflow identity
+    outputs:
+      deployed: ${{ steps.timestamp-deploy.outputs.deployed }}
+    steps:
+      - uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
+        with:
+          name: github-pages
+
+      - uses: google-github-actions/auth@a6e2e39c0a0331da29f7fd2c2a20a427e8d3ad1f # v2.1.1
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: 'projects/843741030650/locations/global/workloadIdentityPools/testpool/providers/testprovider'
+          service_account: ${{ vars.TEST_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@98ddc00a17442e89a24bbf282954a3b65ce6d200 # v2.1.0
+
+      - name: Deploy timestamp (if no other changes)
+        id: timestamp-deploy
+        run: |
+          BUCKET="gs://jku-testbucket/"
+
+          # Extract the github-pages archive into ./repository/
+          mkdir repository
+          tar --directory repository -xvf artifact.tar
+
+          # download current content
+          gcloud storage rsync --recursive $BUCKET current-repository
+
+          # Test what the changes would be if we exclude timestamp
+          rsync --recursive current-repository/ new-repository/
+          rsync --recursive --exclude=metadata/timestamp.json repository/ new-repository/
+          if diff --brief --recursive current-repository new-repository; then
+              echo No changes detected outside of timestamp: deploying timestamp.json
+              gcloud storage cp --cache-control=no-store repository/metadata/timestamp.json ${BUCKET}metadata/timestamp.json
+              echo "deployed=true" >> "$GITHUB_OUTPUT"
+          else
+              echo Full repository deployment needed
+              echo "deployed=false" >> "$GITHUB_OUTPUT"
+          fi
 
   deploy-repository-to-gcs:
-    runs-on: ubuntu-latest
     needs: [deploy-timestamp-to-gcs]
+    runs-on: ubuntu-latest
     if: needs.deploy-timestamp-to-gcs.outputs.deployed != 'true'
     environment: GCS deployment
+    concurrency: 
+      group: gcs-deploy
+      cancel-in-progress: true
     permissions:
       id-token: 'write' # for authenticating with OIDC
     steps:
       - uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
         with:
           name: github-pages
-
-      - name: Prepare the data for upload
-        run: |
-          # Extract the github-pages arcive into ./repository/
-          mkdir repository
-          tar --directory repository -xvf artifact.tar
 
       - uses: google-github-actions/auth@a6e2e39c0a0331da29f7fd2c2a20a427e8d3ad1f # v2.1.1
         with:
@@ -79,6 +114,10 @@ jobs:
       - name: Upload repository to GCS
         run: |
           BUCKET="gs://jku-testbucket/"
+
+          # Extract the github-pages archive into ./repository/
+          mkdir repository
+          tar --directory repository -xvf artifact.tar
 
           # Upload metadata, make sure we upload timestamp last
           gcloud storage rsync --checksums-only --cache-control=no-store --recursive --exclude=timestamp.json \
