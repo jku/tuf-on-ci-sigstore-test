@@ -11,7 +11,8 @@ on:
         required: true
         type: string
     outputs:
-      deployed: ${{ jobs.deploy-timestamp-to-gcs.outputs.deployed }}
+      deployed:
+        value: ${{ jobs.deploy-timestamp-to-gcs.outputs.deployed }}
 
 permissions: {}
 
