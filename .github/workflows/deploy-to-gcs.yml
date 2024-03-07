@@ -50,7 +50,7 @@ jobs:
           gcloud --quiet storage rsync --dry-run repository/ $BUCKET
           echo "----"
           gcloud --quiet storage rsync --dry-run repository/ $BUCKET >dryrun 2>&1
-          grep -v "^At file://\|^At gs://\|^[[:space:]]*$" dryrun > dryrun-cleaned
+          grep -v "^At file://\|^At gs://\|^[[:space:]]*$" dryrun > dryrun-cleaned || true
 
           if ! grep -q -v "$TIMESTAMP_DRYRUN" dryrun-cleaned; then
             echo No changes detected outside of timestamp
