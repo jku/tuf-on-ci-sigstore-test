@@ -18,7 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: 'write' # For authenticating with the GitHub workflow identity
-
+    outputs:
+      TIMESTAMP_ONLY: ${{ steps.change-detector.outputs.TIMESTAMP_ONLY }}
     steps:
       - uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
         with:
@@ -37,8 +38,6 @@ jobs:
           service_account: ${{ inputs.gcp_service_account }}
 
       - uses: google-github-actions/setup-gcloud@98ddc00a17442e89a24bbf282954a3b65ce6d200 # v2.1.0
-        #with:
-        #  project_id: project-rekor
 
       - name: Decide if deployment gating is required
         id: change-detector
@@ -58,13 +57,40 @@ jobs:
               echo "TIMESTAMP_ONLY=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Upload new timestamp to GCS
+      - name: Upload timestamp to GCS
         if: steps.change-detector.outputs.TIMESTAMP_ONLY == 'true'
         run: |
           BUCKET="gs://jku-testbucket/"
 
           # Upload timestamp
           gcloud storage cp --cache-control=no-store repository/metadata/timestamp.json ${BUCKET}metadata/timestamp.json
+
+  deploy-whole-repository-to-gcs:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: 'write' # For authenticating with the GitHub workflow identity
+    needs: deploy-to-gcs
+    if: needs.deploy-to-gcs.outputs.TIMESTAMP_ONLY != 'true'
+    environment: 
+      name: GCS deployment
+    steps:
+      - uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
+        with:
+          name: github-pages
+
+      - name: Prepare the data for upload
+        run: |
+          # Extract the github-pages arcive into ./repository/
+          mkdir repository
+          tar --directory repository -xvf artifact.tar
+
+      - uses: google-github-actions/auth@a6e2e39c0a0331da29f7fd2c2a20a427e8d3ad1f # v2.1.1
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: ${{ inputs.gcp_workload_identity_provider }}
+          service_account: ${{ inputs.gcp_service_account }}
+
+      - uses: google-github-actions/setup-gcloud@98ddc00a17442e89a24bbf282954a3b65ce6d200 # v2.1.0
 
       - name: Upload repository to GCS
         if: steps.change-detector.outputs.TIMESTAMP_ONLY != 'true'
