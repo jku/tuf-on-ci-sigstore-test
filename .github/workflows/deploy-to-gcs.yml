@@ -40,15 +40,6 @@ jobs:
         #with:
         #  project_id: project-rekor
 
-      - name: Upload repository to GCS
-        run: |
-          # Make sure we upload timestamp last
-          gcloud storage rsync --cache-control=no-store --recursive --exclude=metadata/timestamp.json \
-              repository/ gs://jku-testbucket/
-          gcloud storage cp --cache-control=no-store repository/metadata/timestamp.json gs://jku-testbucket/metadata/
-
-          # gcloud compute url-maps invalidate-cdn-cache tuf-repo-cdn-lb --path "/*" --async
-
       - name: Decide if deployment gating is required
         id: change-detector
         run: |
@@ -56,7 +47,9 @@ jobs:
           TIMESTAMP_DRYRUN="Would copy file://repository/timestamp.json to ${BUCKET}timestamp.json"
 
           # Find out which files have changed: run rsync dry-run and cleanup the output 
-          gcloud --quiet storage rsync --dry-run repository/ gs://tuf-root-staging/ >dryrun 2>&1
+          gcloud --quiet storage rsync --dry-run repository/ $BUCKET
+          echo "----"
+          gcloud --quiet storage rsync --dry-run repository/ $BUCKET >dryrun 2>&1
           grep -v "^At file://\|^At gs://\|^[[:space:]]*$" dryrun > dryrun-cleaned
 
           if ! grep -q -v "$TIMESTAMP_DRYRUN" dryrun-cleaned; then
