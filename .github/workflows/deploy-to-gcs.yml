@@ -44,12 +44,12 @@ jobs:
         id: change-detector
         run: |
           BUCKET="gs://jku-testbucket/"
-          TIMESTAMP_DRYRUN="Would copy file://repository/timestamp.json to ${BUCKET}timestamp.json"
+          TIMESTAMP_DRYRUN="Would copy file://repository/metadata/timestamp.json to ${BUCKET}metadata/timestamp.json"
 
           # Find out which files have changed: run rsync dry-run and cleanup the output 
-          gcloud --quiet storage rsync --dry-run repository/ $BUCKET
+          gcloud --quiet storage rsync --dry-run --recursive repository/ $BUCKET
           echo "----"
-          gcloud --quiet storage rsync --dry-run repository/ $BUCKET >dryrun 2>&1
+          gcloud --quiet storage rsync --dry-run --recursive repository/ $BUCKET >dryrun 2>&1
           grep -v "^At file://\|^At gs://\|^[[:space:]]*$" dryrun > dryrun-cleaned || true
 
           if ! grep -q -v "$TIMESTAMP_DRYRUN" dryrun-cleaned; then
@@ -67,7 +67,7 @@ jobs:
           BUCKET="gs://jku-testbucket/"
 
           # Upload timestamp
-          gcloud storage cp --cache-control=no-store repository/timestamp.json $BUCKET
+          gcloud storage cp --cache-control=no-store repository/metadata/timestamp.json ${BUCKET}metadata/timestamp.json
 
       - name: Upload repository to GCS
         if: steps.change-detector.outputs.TIMESTAMP_ONLY != 'true'
