@@ -48,3 +48,40 @@ jobs:
           gcloud storage cp --cache-control=no-store repository/metadata/timestamp.json gs://jku-testbucket/metadata/
 
           # gcloud compute url-maps invalidate-cdn-cache tuf-repo-cdn-lb --path "/*" --async
+
+      - name: Decide if deployment gating is required
+        id: change-detector
+        run: |
+          BUCKET="gs://jku-testbucket/"
+          TIMESTAMP_DRYRUN="Would copy file://repository/timestamp.json to ${BUCKET}timestamp.json"
+
+          # Find out which files have changed: run rsync dry-run and cleanup the output 
+          gcloud --quiet storage rsync --dry-run repository/ gs://tuf-root-staging/ >dryrun 2>&1
+          grep -v "^At file://\|^At gs://\|^[[:space:]]*$" dryrun > dryrun-cleaned
+
+          if ! grep -q -v "$TIMESTAMP_DRYRUN" dryrun-cleaned; then
+            echo No changes detected outside of timestamp
+            echo "TIMESTAMP_ONLY=true" >> "$GITHUB_OUTPUT"
+          else
+            echo Changes detected:
+            cat dryrun-cleaned
+            echo "TIMESTAMP_ONLY=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload new timestamp to GCS
+        if: steps.change-detector.outputs.TIMESTAMP_ONLY == 'true'
+        run: |
+          BUCKET="gs://jku-testbucket/"
+
+          # Upload timestamp
+          gcloud storage cp --cache-control=no-store repository/timestamp.json $BUCKET
+
+      - name: Upload repository to GCS
+        if: steps.change-detector.outputs.TIMESTAMP_ONLY != 'true'
+        run: |
+          BUCKET="gs://jku-testbucket/"
+
+          # Upload metadata, make sure we upload timestamp last
+          gcloud storage rsync --cache-control=no-store --recursive --exclude=timestamp.json \
+              repository/ $BUCKET
+          gcloud storage cp --cache-control=no-store repository/timestamp.json $BUCKET
