@@ -38,7 +38,7 @@ runs:
         tar --directory repository -xvf artifact.tar
 
     - name: Deploy timestamp to GCS (if there are no other changes)
-      if: inputs.timestamp-only == 'true'
+      if: inputs.timestamp_only == 'true'
       id: timestamp-deploy
       shell: bash
       run: |
@@ -60,7 +60,7 @@ runs:
         fi
 
     - name: Deploy full repository to GCS
-      if: inputs.timestamp-only != 'true'
+      if: inputs.timestamp_only != 'true'
       shell: bash
       run: |
         BUCKET="gs://jku-testbucket/"
