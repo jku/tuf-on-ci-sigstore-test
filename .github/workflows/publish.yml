@@ -59,7 +59,7 @@ jobs:
         with:
           gcp_workload_identity_provider: 'projects/843741030650/locations/global/workloadIdentityPools/testpool/providers/testprovider'
           gcp_service_account: ${{ vars.TEST_SERVICE_ACCOUNT }}
-          timestamp_only: true
+          timestamp_only: 'true'
 
   deploy-repository-to-gcs:
     needs: [deploy-timestamp-to-gcs]
