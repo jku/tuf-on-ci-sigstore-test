@@ -52,6 +52,8 @@ jobs:
     outputs:
       deployed: ${{ steps.timestamp-deploy.outputs.deployed }}
     steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
       - id: timestamp-deploy
         uses: ./.github/actions/deploy-gcs
         with:
@@ -70,6 +72,8 @@ jobs:
     permissions:
       id-token: 'write' # for authenticating with OIDC
     steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
       - uses: ./.github/actions/deploy-gcs
         with:
           gcp_workload_identity_provider: 'projects/843741030650/locations/global/workloadIdentityPools/testpool/providers/testprovider'
