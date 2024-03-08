@@ -34,6 +34,7 @@ runs:
     - name: Deploy timestamp to GCS (if there are no other changes)
       if: inputs.timestamp-only == 'true'
       id: timestamp-deploy
+      shell: bash
       run: |
         BUCKET="gs://jku-testbucket/"
 
@@ -58,6 +59,7 @@ runs:
 
     - name: Deploy full repository to GCS
       if: inputs.timestamp-only != 'true'
+      shell: bash
       run: |
         BUCKET="gs://jku-testbucket/"
 
