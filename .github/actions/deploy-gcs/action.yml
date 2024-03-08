@@ -10,7 +10,7 @@ inputs:
   timestamp_only:
     description: "If 'true', deployment will not happen if there are changes other than timestamp"
     required: false
-    default: false
+    default: 'false'
 outputs:
   deployed:
     description: "'true' if a timestamp-only deployment did the deployment"
