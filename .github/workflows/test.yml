@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Smoke test TUF-on-CI repository with a TUF client
-        uses: jku/tuf-on-ci/actions/test-repository@main
+        uses: theupdateframework/tuf-on-ci/actions/test-repository@main
 
   update-issue:
     runs-on: ubuntu-latest
