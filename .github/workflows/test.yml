@@ -15,6 +15,10 @@ jobs:
       - name: Smoke test TUF-on-CI repository with a TUF client
         uses: theupdateframework/tuf-on-ci/actions/test-repository@main
 
+      - name: pretend test is failing 
+        run: |
+          false
+
   update-issue:
     runs-on: ubuntu-latest
     needs: [smoke-test]
@@ -24,7 +28,7 @@ jobs:
       issues: 'write' # for modifying Issues
     steps:
       - name: Update the issue for the workflow
-        uses: theupdateframework/tuf-on-ci/actions/update-issue@main
+        uses: jku/tuf-on-ci/actions/update-issue@add-custom-failure-message # TESTING
         with:
           token: ${{ secrets.TUF_ON_CI_TOKEN || secrets.GITHUB_TOKEN }}
           success: ${{ !contains(needs.*.result, 'failure') }}
