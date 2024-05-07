@@ -1,3 +1,4 @@
 # Jekyll configuration for GitHub Pages
-
+include:
+  - metadata/index.md
 markdown : GFM
