@@ -17,6 +17,13 @@
     "length": 2
    },
    "testfile": {
+    "custom": {
+        "sigstore": {
+         "status": "Active",
+         "uri": "https://rekor.sigstore.dev",
+         "usage": "Rekor"
+        }
+    },
     "hashes": {
      "sha256": "dd2c1ed9eabd8701baf72ded4d055334d620c606234378da834ddf3a93dba611"
     },
