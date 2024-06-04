@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: build-and-upload-repository
-        uses: jku/tuf-on-ci/actions/upload-repository@e9c4540e82053b7aacfa51c6f2cc57e110fb946e # test html links
+        uses: theupdateframework/tuf-on-ci/actions/upload-repository@main
         with:
           gh_pages: true
           ref: ${{ inputs.ref }}
