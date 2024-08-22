@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: build-and-upload-repository
-        uses: jku/tuf-on-ci/actions/upload-repository@d1dad465ae0a8244fbbb15b4ce3ff1f01379bd0e # test a hack
+        uses: jku/tuf-on-ci/actions/upload-repository@ddbd7aac738e8837124f7307b992a1a600967a9e # test a hack
         with:
           gh_pages: true
           ref: ${{ inputs.ref }}
